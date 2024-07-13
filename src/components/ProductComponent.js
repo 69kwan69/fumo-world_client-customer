@@ -10,6 +10,7 @@ class Product extends Component {
       products: [],
     };
   }
+
   render() {
     const prods = this.state.products.map((item) => {
       return (
@@ -32,6 +33,7 @@ class Product extends Component {
         </div>
       );
     });
+
     return (
       <div className="text-center">
         <h2 className="text-center">LIST PRODUCTS</h2>
@@ -39,6 +41,7 @@ class Product extends Component {
       </div>
     );
   }
+
   componentDidMount() {
     // first: /product/...
     const params = this.props.params;
@@ -48,6 +51,7 @@ class Product extends Component {
       this.apiGetProductsByKeyword(params.keyword);
     }
   }
+
   componentDidUpdate(prevProps) {
     // changed: /product/...
     const params = this.props.params;
@@ -73,4 +77,5 @@ class Product extends Component {
     });
   }
 }
+
 export default withRouter(Product);
