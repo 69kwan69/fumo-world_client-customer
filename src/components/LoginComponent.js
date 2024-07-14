@@ -2,63 +2,63 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import MyContext from '../contexts/MyContext';
 import withRouter from '../utils/withRouter';
+import { Link } from 'react-router-dom';
 
 class Login extends Component {
   static contextType = MyContext; // using this.context to access global state
   constructor(props) {
     super(props);
     this.state = {
-      txtUsername: 'sonkk',
-      txtPassword: '123',
+      txtUsername: 'banana',
+      txtPassword: '1234',
     };
   }
   render() {
     return (
-      <div className="align-center">
-        <h2 className="text-center">CUSTOMER LOGIN</h2>
-        <form>
-          <table className="align-center">
-            <tbody>
-              <tr>
-                <td>Username</td>
-                <td>
-                  <input
-                    type="text"
-                    value={this.state.txtUsername}
-                    onChange={(e) => {
-                      this.setState({ txtUsername: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Password</td>
-                <td>
-                  <input
-                    type="password"
-                    value={this.state.txtPassword}
-                    onChange={(e) => {
-                      this.setState({ txtPassword: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <input
-                    type="submit"
-                    value="LOGIN"
-                    onClick={(e) => this.btnLoginClick(e)}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </form>
+      <div className="grid place-items-center min-h-dvh">
+        <div className="">
+          <div className="flex justify-between items-end gap-6 mb-6">
+            <h1 className="title">Login</h1>
+            <Link className="text-slate-600 underline" to={'/signup'}>
+              Signup
+            </Link>
+          </div>
+
+          <form className="form border rounded-md">
+            <label>
+              Username
+              <input
+                type="text"
+                value={this.state.txtUsername}
+                onChange={(e) => {
+                  this.setState({ txtUsername: e.target.value });
+                }}
+              />
+            </label>
+
+            <label>
+              Password
+              <input
+                type="password"
+                value={this.state.txtPassword}
+                onChange={(e) => {
+                  this.setState({ txtPassword: e.target.value });
+                }}
+              />
+            </label>
+
+            <button
+              className="button shadow"
+              onClick={(e) => this.btnLoginClick(e)}
+            >
+              Login
+            </button>
+          </form>
+        </div>
       </div>
     );
   }
+
   // event-handlers
   btnLoginClick(e) {
     e.preventDefault();
@@ -71,6 +71,7 @@ class Login extends Component {
       alert('Please input username and password');
     }
   }
+
   // apis
   apiLogin(account) {
     axios.post('/api/customer/login', account).then((res) => {
@@ -85,4 +86,5 @@ class Login extends Component {
     });
   }
 }
+
 export default withRouter(Login);

@@ -37,35 +37,44 @@ class Mycart extends Component {
         </tr>
       );
     });
+
     return (
-      <div className="align-center">
-        <h2 className="text-center">ITEM LIST</h2>
-        <table className="datatable" border="1">
-          <tbody>
-            <tr className="datatable">
-              <th>No.</th>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Image</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Amount</th>
-              <th>Action</th>
-            </tr>
-            {mycart}
-            <tr>
-              <td colSpan="6"></td>
-              <td>Total</td>
-              <td>{CartUtil.getTotal(this.context.mycart)}</td>
-              <td>
-                <span className="link" onClick={() => this.lnkCheckoutClick()}>
-                  CHECKOUT
-                </span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="main">
+        <h1 className="title mb-6">My cart</h1>
+        <div className="table">
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Amount</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>{mycart}</tbody>
+          </table>
+        </div>
+
+        <div className="w-max ml-auto mt-6 flex gap-6">
+          <div className="text-right">
+            <p>Total</p>
+            <p className="text-2xl font-bold">
+              69
+              {CartUtil.getTotal(this.context.mycart)}$
+            </p>
+          </div>
+          <button
+            className="button shadow flex items-center gap-2 uppercase font-bold tracking-wider"
+            onClick={() => this.lnkCheckoutClick()}
+          >
+            Checkout<span class="material-symbols-rounded">arrow_forward</span>
+          </button>
+        </div>
       </div>
     );
   }

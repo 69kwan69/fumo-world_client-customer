@@ -16,69 +16,69 @@ class ProductDetail extends Component {
 
   render() {
     const prod = this.state.product;
-    if (prod != null) {
+    if (prod != null)
       return (
-        <div className="align-center">
-          <h2 className="text-center">PRODUCT DETAILS</h2>
-          <figure className="caption-right">
+        <div className="main">
+          <h1 className="title mb-6">Product details</h1>
+
+          <div className="grid sm:grid-cols-2 gap-y-6 gap-x-10">
             <img
               src={'data:image/jpg;base64,' + prod.image}
-              width="400px"
-              height="400px"
+              className="object-contain aspect-square w-full p-4 border rounded-md shadow"
               alt=""
             />
-            <figcaption>
-              <form>
-                <table>
-                  <tbody>
-                    <tr>
-                      <td align="right">ID:</td>
-                      <td>{prod._id}</td>
-                    </tr>
-                    <tr>
-                      <td align="right">Name:</td>
-                      <td>{prod.name}</td>
-                    </tr>
-                    <tr>
-                      <td align="right">Price:</td>
-                      <td>{prod.price}</td>
-                    </tr>
-                    <tr>
-                      <td align="right">Category:</td>
-                      <td>{prod.category.name}</td>
-                    </tr>
-                    <tr>
-                      <td align="right">Quantity:</td>
-                      <td>
-                        <input
-                          type="number"
-                          min="1"
-                          max="99"
-                          value={this.state.txtQuantity}
-                          onChange={(e) => {
-                            this.setState({ txtQuantity: e.target.value });
-                          }}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <input
-                          type="submit"
-                          value="ADD TO CART"
-                          onClick={(e) => this.btnAdd2CartClick(e)}
-                        />
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </form>
-            </figcaption>
-          </figure>
+
+            <div className="flex flex-col gap-6">
+              <div>
+                <span className="uppercase tracking-[0.25em] text-slate-600">
+                  {prod.category.name}
+                </span>
+                <h2 className="font-semibold text-2xl">{prod.name}</h2>
+              </div>
+
+              <p className="text-slate-600 text-justify">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Temporibus, facilis. Quibusdam reprehenderit fugiat, nisi dolore
+                a laudantium mollitia expedita animi! Consequatur rem, enim
+                dolor saepe minima quis assumenda nobis optio aspernatur
+                perspiciatis molestias, natus nam illo nihil corrupti tempore.
+                Totam, consectetur ea. Cum, sunt et? Quisquam modi cum rem
+                soluta?
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-1">
+                <label className="flex gap-4 items-end">
+                  <span className="text-slate-600">Quantity:</span>
+                  <input
+                    className="text-2xl font-bold w-[4ch]"
+                    type="number"
+                    min="1"
+                    max="99"
+                    value={this.state.txtQuantity}
+                    onChange={(e) => {
+                      this.setState({ txtQuantity: e.target.value });
+                    }}
+                  />
+                </label>
+
+                <p className="flex gap-4 items-end">
+                  <span className="text-slate-600">Total:</span>
+                  <span className="text-2xl font-bold">
+                    {parseInt(prod.price) * parseInt(this.state.txtQuantity)}$
+                  </span>
+                </p>
+              </div>
+
+              <button
+                className="button uppercase font-semibold"
+                onClick={(e) => this.btnAdd2CartClick(e)}
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
         </div>
       );
-    }
     return <div />;
   }
 
@@ -87,13 +87,6 @@ class ProductDetail extends Component {
     this.apiGetProduct(params.id);
   }
 
-  // apis
-  apiGetProduct(id) {
-    axios.get('/api/customer/products/' + id).then((res) => {
-      const result = res.data;
-      this.setState({ product: result });
-    });
-  }
   // event-handlers
   btnAdd2CartClick(e) {
     e.preventDefault();
@@ -116,5 +109,14 @@ class ProductDetail extends Component {
       alert('Please input quantity');
     }
   }
+
+  // apis
+  apiGetProduct(id) {
+    axios.get('/api/customer/products/' + id).then((res) => {
+      const result = res.data;
+      this.setState({ product: result });
+    });
+  }
 }
+
 export default withRouter(ProductDetail);

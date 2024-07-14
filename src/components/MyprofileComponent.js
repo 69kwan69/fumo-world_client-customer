@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import MyContext from '../contexts/MyContext';
 
 class Myprofile extends Component {
   static contextType = MyContext; // using this.context to access global state
+
   constructor(props) {
     super(props);
     this.state = {
@@ -15,90 +16,86 @@ class Myprofile extends Component {
       txtEmail: '',
     };
   }
+
   render() {
     if (this.context.token === '') return <Navigate replace to="/login" />;
     return (
-      <div className="align-center">
-        <h2 className="text-center">MY PROFILE</h2>
-        <form>
-          <table className="align-center">
-            <tbody>
-              <tr>
-                <td>Username</td>
-                <td>
-                  <input
-                    type="text"
-                    value={this.state.txtUsername}
-                    onChange={(e) => {
-                      this.setState({ txtUsername: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Password</td>
-                <td>
-                  <input
-                    type="password"
-                    value={this.state.txtPassword}
-                    onChange={(e) => {
-                      this.setState({ txtPassword: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Name</td>
-                <td>
-                  <input
-                    type="text"
-                    value={this.state.txtName}
-                    onChange={(e) => {
-                      this.setState({ txtName: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Phone</td>
-                <td>
-                  <input
-                    type="tel"
-                    value={this.state.txtPhone}
-                    onChange={(e) => {
-                      this.setState({ txtPhone: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Email</td>
-                <td>
-                  <input
-                    type="email"
-                    value={this.state.txtEmail}
-                    onChange={(e) => {
-                      this.setState({ txtEmail: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <input
-                    type="submit"
-                    value="UPDATE"
-                    onClick={(e) => this.btnUpdateClick(e)}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="main">
+        <h1 className="title">My profile</h1>
+
+        <form className="form grid grid-cols-[10ch_1fr] items-center gap-y-2 max-w-lg mx-auto">
+          <label htmlFor="username">Username:</label>
+          <input
+            id="username"
+            className="border-none !py-1"
+            type="text"
+            value={this.state.txtUsername}
+            onChange={(e) => {
+              this.setState({ txtUsername: e.target.value });
+            }}
+          />
+
+          <label htmlFor="password">Password:</label>
+          <input
+            id="password"
+            className="border-none !py-1"
+            type="password"
+            value={this.state.txtPassword}
+            onChange={(e) => {
+              this.setState({ txtPassword: e.target.value });
+            }}
+          />
+
+          <label htmlFor="name">Name:</label>
+          <input
+            id="name"
+            className="border-none !py-1"
+            type="text"
+            value={this.state.txtName}
+            onChange={(e) => {
+              this.setState({ txtName: e.target.value });
+            }}
+          />
+
+          <label htmlFor="phone">Phone:</label>
+          <input
+            id="phone"
+            className="border-none !py-1"
+            type="tel"
+            value={this.state.txtPhone}
+            onChange={(e) => {
+              this.setState({ txtPhone: e.target.value });
+            }}
+          />
+
+          <label htmlFor="email">Email:</label>
+          <input
+            id="email"
+            className="border-none !py-1"
+            type="email"
+            value={this.state.txtEmail}
+            onChange={(e) => {
+              this.setState({ txtEmail: e.target.value });
+            }}
+          />
+
+          <div className="buttons col-span-2">
+            <button className="button" onClick={(e) => this.btnUpdateClick(e)}>
+              Edit
+            </button>
+            <Link
+              className="button text-center"
+              to="/home"
+              onClick={() => this.lnkLogoutClick()}
+            >
+              Logout
+            </Link>
+          </div>
         </form>
       </div>
     );
   }
+
   componentDidMount() {
     if (this.context.customer) {
       this.setState({
@@ -110,6 +107,7 @@ class Myprofile extends Component {
       });
     }
   }
+
   // event-handlers
   btnUpdateClick(e) {
     e.preventDefault();
@@ -131,6 +129,13 @@ class Myprofile extends Component {
       alert('Please input username and password and name and phone and email');
     }
   }
+
+  lnkLogoutClick() {
+    this.context.setToken('');
+    this.context.setCustomer(null);
+    this.context.setMycart([]);
+  }
+
   // apis
   apiPutCustomer(id, customer) {
     const config = { headers: { 'x-access-token': this.context.token } };
@@ -145,4 +150,5 @@ class Myprofile extends Component {
     });
   }
 }
+
 export default Myprofile;

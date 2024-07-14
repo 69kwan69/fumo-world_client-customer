@@ -11,47 +11,38 @@ class Active extends Component {
   }
   render() {
     return (
-      <div className="align-center">
-        <h2 className="text-center">ACTIVE ACCOUNT</h2>
-        <form>
-          <table className="align-center">
-            <tbody>
-              <tr>
-                <td>ID</td>
-                <td>
-                  <input
-                    type="text"
-                    value={this.state.txtID}
-                    onChange={(e) => {
-                      this.setState({ txtID: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td>Token</td>
-                <td>
-                  <input
-                    type="text"
-                    value={this.state.txtToken}
-                    onChange={(e) => {
-                      this.setState({ txtToken: e.target.value });
-                    }}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <input
-                    type="submit"
-                    value="ACTIVE"
-                    onClick={(e) => this.btnActiveClick(e)}
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div>
+        <h1 className="title mb-6">Activate account</h1>
+
+        <form class="form border rounded-md">
+          <label>
+            ID
+            <input
+              type="text"
+              value={this.state.txtID}
+              onChange={(e) => {
+                this.setState({ txtID: e.target.value });
+              }}
+            />
+          </label>
+
+          <label>
+            Token
+            <input
+              type="text"
+              value={this.state.txtToken}
+              onChange={(e) => {
+                this.setState({ txtToken: e.target.value });
+              }}
+            />
+          </label>
+
+          <button
+            className="button shadow"
+            onClick={(e) => this.btnActiveClick(e)}
+          >
+            Activate
+          </button>
         </form>
       </div>
     );
