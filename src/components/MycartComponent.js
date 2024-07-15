@@ -64,7 +64,6 @@ class Mycart extends Component {
           <div className="text-right">
             <p>Total</p>
             <p className="text-2xl font-bold">
-              69
               {CartUtil.getTotal(this.context.mycart)}$
             </p>
           </div>
