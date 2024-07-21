@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import withRouter from '../utils/withRouter';
+import loadingAnimation from '../assets/loading.gif';
 
 class Product extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class Product extends Component {
     this.state = {
       title: 'Products',
       products: [],
+      loading: false,
     };
   }
 
@@ -45,9 +47,21 @@ class Product extends Component {
         <p className="uppercase text-slate-600 mb-6">
           {this.state.products.length} items
         </p>
-        <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-          {prods}
-        </div>
+
+        {this.state.loading ? (
+          <div className="w-full h-[300px] grid place-items-center">
+            <img
+              className="w-[200px]"
+              src={loadingAnimation}
+              alt="Loading..."
+            />
+            <span className="text-lg">Loading...</span>
+          </div>
+        ) : (
+          <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+            {prods}
+          </div>
+        )}
       </div>
     );
   }
@@ -74,19 +88,26 @@ class Product extends Component {
 
   // apis
   apiGetProductsByCatID(cid) {
+    this.setState({ loading: true });
     axios.get('/api/customer/products/category/' + cid).then((res) => {
       const result = res.data;
       this.setState({
         title: `${result[0].category.name} series`,
         products: result,
+        loading: false,
       });
     });
   }
 
   apiGetProductsByKeyword(keyword) {
+    this.setState({ loading: true });
     axios.get('/api/customer/products/search/' + keyword).then((res) => {
       const result = res.data;
-      this.setState({ title: `Search with '${keyword}'`, products: result });
+      this.setState({
+        title: `Search with '${keyword}'`,
+        products: result,
+        loading: false,
+      });
     });
   }
 }
