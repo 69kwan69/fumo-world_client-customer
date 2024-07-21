@@ -68,7 +68,7 @@ class Login extends Component {
       const account = { username: username, password: password };
       this.apiLogin(account);
     } else {
-      alert('Please input username and password');
+      alert('Please enter username and password');
     }
   }
 
