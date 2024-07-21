@@ -126,7 +126,7 @@ class Myprofile extends Component {
       };
       this.apiPutCustomer(this.context.customer._id, customer);
     } else {
-      alert('Please input username and password and name and phone and email');
+      alert('Please check your username, password, name, phone or email');
     }
   }
 
@@ -142,10 +142,10 @@ class Myprofile extends Component {
     axios.put('/api/customer/customers/' + id, customer, config).then((res) => {
       const result = res.data;
       if (result) {
-        alert('OK BABY!');
+        alert('Profile updated!');
         this.context.setCustomer(result);
       } else {
-        alert('SORRY BABY!');
+        alert("There's something wrong, please try again!");
       }
     });
   }
