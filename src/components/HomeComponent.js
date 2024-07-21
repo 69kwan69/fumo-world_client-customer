@@ -37,25 +37,28 @@ class Home extends Component {
         </div>
       </Link>
     ));
-
     const hotprods = this.state.hotprods.map((item) => (
-      <div key={item._id} className="inline">
-        <figure>
-          <Link to={'/product/' + item._id}>
-            <img
-              src={'data:image/jpg;base64,' + item.image}
-              width="300px"
-              height="300px"
-              alt=""
-            />
-          </Link>
-          <figcaption className="text-center">
-            {item.name}
-            <br />
-            Price: {item.price}
-          </figcaption>
-        </figure>
-      </div>
+      <Link to={'/product/' + item._id}>
+        <div
+          key={item._id}
+          className="border rounded-md shadow hover:-translate-y-1 hover:shadow-md transition-all"
+        >
+          <img
+            src={'data:image/jpg;base64,' + item.image}
+            className="object-contain aspect-square w-full p-4"
+            alt=""
+          />
+          <div className="bg-slate-100 p-4">
+            <p className="font-semibold text-lg line-clamp-1">{item.name}</p>
+            <div className="flex gap-4 justify-between items-end">
+              <p className="text-sm uppercase tracking-[0.25em] text-slate-600">
+                {item.category.name}
+              </p>
+              <p className="font-bold text-xl">{item.price}$</p>
+            </div>
+          </div>
+        </div>
+      </Link>
     ));
 
     return (
@@ -86,6 +89,11 @@ class Home extends Component {
         <div className="mt-10">
           <h2 className="text-center title mb-6">New fumo</h2>
           <div className="grid grid-cols-3 gap-4">{newprods}</div>
+        </div>
+
+        <div className="mt-10">
+          <h2 className="text-center title mb-6">Hot fumo</h2>
+          <div className="grid grid-cols-3 gap-4">{hotprods}</div>
         </div>
 
         <div className="mt-10 text-slate-500 text-center">

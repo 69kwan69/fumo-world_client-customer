@@ -55,7 +55,7 @@ class Active extends Component {
     if (id && token) {
       this.apiActive(id, token);
     } else {
-      alert('Please input id and token');
+      alert('Please enter id and token');
     }
   }
   // apis
@@ -64,9 +64,9 @@ class Active extends Component {
     axios.post('/api/customer/active', body).then((res) => {
       const result = res.data;
       if (result) {
-        alert('OK BABY!');
+        alert('Account ativated!');
       } else {
-        alert('SORRY BABY!');
+        alert("There's somthing wrong, please try again!");
       }
     });
   }

@@ -75,7 +75,7 @@ class Menu extends Component {
               <>
                 <Link
                   className="button rounded-full py-2 px-4 grid place-items-center grid-flow-col gap-2"
-                  to="/account"
+                  to="/account/cart"
                   title={`My cart has ${this.context.mycart.length} items`}
                 >
                   <span className="material-symbols-rounded">
@@ -85,7 +85,7 @@ class Menu extends Component {
                 </Link>
                 <Link
                   className="button rounded-full p-2 grid place-items-center"
-                  to="/account"
+                  to="/account/profile"
                 >
                   <span class="material-symbols-rounded">person</span>
                 </Link>
